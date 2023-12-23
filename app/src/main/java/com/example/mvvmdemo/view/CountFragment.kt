@@ -13,7 +13,7 @@ import com.example.mvvmdemo.viewmodel.CountViewModel
 
 class CountFragment : Fragment() {
 
-    var viewModel: CountViewModel? = null
+    lateinit var viewModel: CountViewModel // dùng cách này thì không cần phải khởi tạo null và không cần phải check null - cách này tương tự lazy
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[CountViewModel::class.java]
@@ -30,13 +30,13 @@ class CountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel?.count?.observe(viewLifecycleOwner) {
+        viewModel.count.observe(viewLifecycleOwner) {
             view.findViewById<TextView>(R.id.txt_count).text =
                 it.toString()
         }
 
         view.findViewById<Button>(R.id.btn_count).setOnClickListener(){
-            viewModel?.updateCount()
+            viewModel.updateCount()
         }
     }
 }

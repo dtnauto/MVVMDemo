@@ -7,12 +7,14 @@ import androidx.lifecycle.ViewModel
 import com.example.mvvmdemo.model.Count
 import com.example.mvvmdemo.repository.CountRepository
 
-class CountViewModel(): ViewModel() {
+class CountViewModel(application: Application): AndroidViewModel(application) {
+    var repository = CountRepository(application)
+
     var count = MutableLiveData<Int>()
     var num = 0
 
     init {
-        num = CountRepository().num
+        num = repository.num
         count.value = num
     }
 
